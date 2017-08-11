@@ -1,0 +1,79 @@
+// Universal utility mixins //
+// This will be updated over time //
+// and available to all projects //
+/**********************************/
+
+@mixin background-cover($image) {
+  background:url('../images/#{$image}') no-repeat center;
+  background-size:cover;
+}
+
+@mixin center-both {
+  top:50%;
+  left:50%;
+  -webkit-transform:translate(-50%,-50%);
+  -moz-transform:translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+}
+
+@mixin center-x {
+  left:50%;
+  -webkit-transform:translateX(-50%);
+  -moz-transform:translateX(-50%);
+  -ms-transform:translateX(-50%);
+  transform:translateX(-50%);
+}
+
+@mixin center-y {
+  top:50%;
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  transform:translateY(-50%);
+}
+
+@mixin second-col-margin {
+  .columns:nth-of-type(2) {
+    margin-top:50px;
+    @include breakpoint(large) {
+      margin-top:0;
+    }
+  }
+}
+
+@mixin box-s($x, $y, $offset, $color, $inset:false) {
+  $ie-color: ie-hex-str($color);
+  @if $inset {
+    -webkit-box-shadow:inset $x $y $offset $color;
+    box-shadow:inset $x $y $offset $color;
+	}
+  @else {
+    -webkit-box-shadow:$x $y $offset $color;
+    box-shadow:$x $y $offset $color;
+		filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$ie-color}');
+	}
+}
+
+@mixin placeholder-style($color,$font-size:inherit) {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color:$color;
+    font-size:$font-size;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color:$color;
+    font-size:$font-size;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color:$color;
+    font-size:$font-size;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color:$color;
+    font-size:$font-size;
+  }
+}
+
+
+// Theme-specific mixins //
+/*************************/
