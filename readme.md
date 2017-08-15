@@ -62,14 +62,14 @@ foundation build
 * `assets/js/lib/foundation-explicit-pieces.js`: Comment out any Foundation modules that are not in use to save project filesize.
 
 
-### How to customize and build this templates
+## How to customize and build this template
 
-## Handlebars with panini
+### Handlebars with panini
 
 [Panini](http://foundation.zurb.com/sites/docs/panini.html)
 The folder structure of the ```src``` directory is important to understand in order to make use of Handlebars with Panini.
 * `src/layouts`: These are your main template files that all pages on your site will share. Generally you will not need more than the one provided, however the option is there if necessary to use more complex templating for larger websites.
-* `src/pages`: Using the ```{{> PARTIAL_NAME}}``` declaration, your template file will pull partial HTML templates from this folder. The default ```{{> body}}``` declaration will pull the partial with the same name as the URL you are currently at.
+* `src/pages`: Using the ```{{> PARTIAL_NAME}}``` declaration, your template file will pull partial HTML templates from this folder. The default ```{{> body}}``` declaration will pull the partial with the same name as your current URL.
 * `src/data`: This is a generic folder for storing your JSON or YAML files to be read by Panini with compiling your HTML files.
 * `src/helpers`: You can read about Helpers at the link above, but they are essentially custom functions used to manipulate page content. They can be extremely useful if you want to make full use of Panini, but can be safely ignored.
 
@@ -82,5 +82,18 @@ The folder structure of the ```src``` directory is important to understand in or
 python -m SimpleHTTPServer
 ```
 This will start a server on port 8000 that is able to properly serve files. This command should be run from inside the ```dist``` folder, after creating a production build.
+
+- Webpack, when compiling your JS files, will try not to litter the global scope, so functions will not be made available globally by default. You can make functions global by manually adding it in one of two ways:
+```
+function someFunction() {
+  ...
+}
+window.someFunction = someFunction;
+```
+```
+window.someFunction = function() {
+  ...
+}
+```
 
 - Webpack/Babel will compile all JS files and require "use strict". If you are getting any unexplained errors in your custom Javascript files that you are only getting once Webpack gets ahold of them, this is where you should look.

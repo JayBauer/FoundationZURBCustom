@@ -101,13 +101,35 @@ let webpackConfig = {
     ]
   }
 }
+
+// Lint all JS files in custom directory
+function lint() {
+  return gulp.src(PATHS.dist + '/assets/js/custom/*.js')
+    .pipe($.jshint())
+    .pipe($.notify(function (file) {
+      if (file.jshint.success) {
+        return false;
+      }
+
+      var errors = file.jshint.results.map(function (data) {
+        if (data.error) {
+          return "(" + data.error.line + ':' + data.error.character + ') ' + data.error.reason;
+        }
+      }).join("\n");
+      return file.relative + " (" + file.jshint.results.length + " errors)\n" + errors;
+    }));
+}
+
 // Combine JavaScript into one file
 // In production, the file is minified
 function javascript() {
   return gulp.src(PATHS.entries)
-    .pipe(named())
     .pipe($.sourcemaps.init())
     .pipe(webpackStream(webpackConfig, webpack2))
+    .pipe($.babel())
+    .pipe($.concat('app.js', {
+      newLine:'\n;'
+    }))
     .pipe($.if(PRODUCTION, $.uglify()
       .on('error', e => { console.log(e); })
     ))
