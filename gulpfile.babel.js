@@ -12,6 +12,7 @@ import fs            from 'fs';
 import webpackStream from 'webpack-stream';
 import webpack2      from 'webpack';
 import named         from 'vinyl-named';
+import pngquant      from 'gulp-pngquant';
 
 // Load all Gulp plugins into one variable
 const $ = plugins();
@@ -143,6 +144,9 @@ function images() {
   return gulp.src('src/assets/images/**/*')
     .pipe($.if(PRODUCTION, $.imagemin({
       progressive: true
+    })))
+    .pipe($.if(PRODUCTION, pngquant({
+      quality: '50-75'
     })))
     .pipe(gulp.dest(PATHS.dist + '/assets/images'));
 }
