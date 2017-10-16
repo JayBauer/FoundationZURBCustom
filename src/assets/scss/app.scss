@@ -41,7 +41,7 @@
 //@include foundation-progress-bar;
 @include foundation-slider;
 @include foundation-sticky;
-@include foundation-reveal;
+//@include foundation-reveal;
 //@include foundation-switch;
 //@include foundation-table;
 //@include foundation-tabs;
@@ -65,12 +65,9 @@
 // Modules
 @import "modules/header";
 @import "modules/footer";
-@import "modules/store-locator";
 
 // Components
 @import "components/buttons";
 @import "components/links";
-@import "components/modals";
 
 // Templates
-@import "templates/front";
